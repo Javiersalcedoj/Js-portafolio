@@ -1,0 +1,11 @@
+//se crea un ojeto donde estara la configuraciones de los preset (trabajar con js moderno) y los plugins
+{
+    //prmiero van los presents
+    "presets": [
+        "@babel/preset-env"
+    ],
+    //los plugins
+    "plugins": [
+        "@babel/plugin-transform-runtime"
+    ]
+}
