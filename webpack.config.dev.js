@@ -1,12 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin =  require('mini-css-extract-plugin');
-const CopyPlugin = require ('copy-webpack-plugin')
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
+const CopyPlugin = require ('copy-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
-//agregamos esto
-const { CleanWebpackPlugin} = require('clean-webpack-plugin');
 
 module.exports = {
     entry: './src/index.js',
@@ -15,13 +11,12 @@ module.exports = {
         filename: '[name].[contenthash].js',
         assetModuleFilename: 'assets/images/[hash][ext][query]'
     },
+    mode: 'development',
+    //activamos el modo watch
+    watch: true,
     resolve: {
         extensions: ['.js'],
-        //creamos un nuevo apartado para los alias
         alias:{
-            //colocamos las configuracion que tendremos
-            //identifica que carpeta hay en tu proyecto en este hay (utils, templates, styles, assets) esos van a ser los elementos que vamos a crear en alias 
-            //para poder indentificar como alias el @antes
             '@utils': path.resolve(__dirname, 'src/utils/'),
             '@templates': path.resolve(__dirname, 'src/templates/'),
             '@styles': path.resolve(__dirname, 'src/styles/'),
@@ -82,18 +77,7 @@ module.exports = {
                 }
             ]
         }),
-        new Dotenv(),
-        //agregamos nuesto plugin
-        new CleanWebpackPlugin(),
+        new Dotenv()
     ],
-    optimization: {
-        minimize: true,
-        minimizer: [
-            //para el css
-            new CssMinimizerPlugin(),
-            //para js
-            new TerserPlugin(),
-        ]
-    }
 }
 
